@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block container %}
+
+{% if user.is_authenticated %}
+<div class="card text-center">
+  <div class="card-header">
+    Опросник
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Заполните ответы на вопросы</h5>
+    <p class="card-text">
+            <form method="POST">
+              {% csrf_token %}
+              <label for="uni_course">Ваша оценка профильных предметов(от 0 до 5):</label><br>
+              <input type="range" id="uni_course" name="uni_course" min="0" max="5"><br>
+              <label for="soft_course">Необходимость soft skill предметов(от 0 до 5):</label><br>
+              <input type="range" id="soft_course" name="soft_course" min="0" max="5"><br>
+              <label for="online_course">Необходимость онлайн курсов(от 0 до 5):</label><br>
+              <input type="range" id="online_course" name="online_course" min="0" max="5"><br>
+              <label for="difficulty_of_courses">Ваша оценка сложности обучения(от 0 до 5):</label><br>
+              <input type="range" id="difficulty_of_courses" name="difficulty_of_courses" min="0" max="5"><br>
+
+              <label for="hardest_teacher">Преподаватель чьи предметы оказались самыми сложными(Фамилия):</label><br>
+              <input type="text" id="hardest_teacher" name="hardest_teacher"><br>
+              <label for="self_opinion">Ваш комментарий:</label><br>
+              <input type="text" id="self_opinion" name="self_opinion"><br>
+              <br>
+              <input type="submit" value="Отправить" style="position: relative">
+            </form>
+    </p>
+
+  </div>
+</div>
+{% else %}
+    <div class="card text-center">
+        <div class="card-header">
+            Данный сайт предназаначен для получения обратной связи от студентов.
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Чтобы пройти данный опрос необходимо зарегистрироваться.</h5>
+            <div align="center">
+                <img src="https://dt2sdf0db8zob.cloudfront.net/wp-content/uploads/2020/02/form-builders-11-850x435.png">
+            </div>
+        </div>
+    </div>
+{% endif %}
+{% endblock %}
