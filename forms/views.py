@@ -1,7 +1,10 @@
+import numpy as np
 from django.shortcuts import render, redirect
 from django.views import View
+
 from .models import Form
 from .create_plots import queryset_to_img
+from .prediction import predict
 
 
 class MainView(View):
@@ -60,3 +63,25 @@ class AnalyticPage(View):
                                                  'difficulty_plot': difficulty_plot,
                                                  'hardest_plot': hardest_plot,
                                                  'counter': count_forms})
+
+class ForecastPage(View):
+    def get(self, request):
+        all_objects = Form.objects.all().values()
+
+        keys = [
+            'uni_course',
+            'soft_course',
+            'online_course',
+            'difficulty_of_courses'
+        ]
+        form_names = [
+            'Качество обучения',
+            'Уровень удовлетворенности soft skill',
+            'Уровень удовлетворенности онлайн курсами',
+            'Предметная сложность по мнению пользователей'
+        ]
+        predictions = {
+            form_names[i]: round(np.mean(predict(all_objects, keys[i])), 2) for i in range(len(form_names))
+        }
+        print(predictions)
+        return render(request, 'forecast.html', {'predictions': predictions})

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block container %}
+    {% for att, value in predictions.items %}
+        <div class="container mt-2">
+            <div class="row">
+                <div class="col">
+                        <div class="card">
+                            <h4>{{ att }}</h4>
+                            <p>Ожидаемое значение: {{ value }}</p>
+                        </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

@@ -14,6 +14,9 @@ class Form(models.Model):
     # User that complete this form
     author = models.ForeignKey(User, related_name='author', on_delete=models.CASCADE)
 
+    # Timestamp of creation
+    created_on = models.DateTimeField(auto_now_add=True)
+
     # Form with choices from 0 to 5
     uni_course = models.IntegerField(choices=PollChoice.choices)
     soft_course = models.IntegerField(choices=PollChoice.choices)

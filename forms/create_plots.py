@@ -2,6 +2,7 @@ import base64
 import io
 
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 def query_set_to_array(query, att):
@@ -11,7 +12,7 @@ def query_set_to_array(query, att):
 
 def queryset_to_img(all_object, att, title):
     fig, ax1 = plt.subplots()
-    ax1.hist(query_set_to_array(all_object.values(), att))
+    ax1.hist(query_set_to_array(all_object.values(), att), bins=np.arange(5+1)-0.5)
     plt.title(title)
     plt.tight_layout()
     uni_plot = img_to_bytes(fig)
@@ -20,7 +21,7 @@ def queryset_to_img(all_object, att, title):
 
 def img_to_bytes(img):
     buf = io.BytesIO()
-    img.savefig(buf, format='png', transparent=True)
+    img.savefig(buf, format='png')
     buf.seek(0)
     buffer = b''.join(buf)
     return base64.b64encode(buffer).decode('utf-8')
