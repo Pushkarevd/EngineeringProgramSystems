@@ -1,0 +1,1 @@
+web: gunicorn uni_lab4.wsgi --log-file
